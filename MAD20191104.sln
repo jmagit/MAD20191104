@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "curso", "curso\curso.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "curso.Tests", "curso.Tests\curso.Tests.csproj", "{33D3BE7A-A579-4FB6-A38B-8BA3EA1C91A4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D2DAD2C6-FB78-4729-8E93-0F47E35AD808}"
+	ProjectSection(SolutionItems) = preProject
+		Manual de ASPNET MVC5.pdf = Manual de ASPNET MVC5.pdf
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
