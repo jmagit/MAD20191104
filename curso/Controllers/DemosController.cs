@@ -17,5 +17,10 @@ namespace curso.Controllers
         public ActionResult Despide() {
             return View("Adios");
         }
+
+        [NonAction]
+        public string SemiPublico() {
+            return "algo";
+        }
     }
 }

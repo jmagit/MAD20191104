@@ -8,36 +8,35 @@ using System.Web;
 using System.Web.Mvc;
 using domain;
 
-namespace curso.Controllers
-{
-    public class ClientesController : Controller
-    {
+namespace curso.Controllers {
+    public class ClientesController : Controller {
         private AWEntities db = new AWEntities();
 
         // GET: Clientes
-        public ActionResult Index()
-        {
-            return View(db.Customers.ToList());
+        public ActionResult Index(int page = 0, int size = 10) {
+            ViewBag.CountPages = Math.Ceiling((Decimal)db.Customers.Count() / size);
+            ViewBag.NumPage = page;
+            return View(db.Customers
+                    .OrderBy(o=>o.CustomerID)
+                    .Skip(page * size)
+                    .Take(size)
+                    .ToList());
         }
 
         // GET: Clientes/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
+        public ActionResult Details(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Customer customer = db.Customers.Find(id);
-            if (customer == null)
-            {
+            if (customer == null) {
                 return HttpNotFound();
             }
             return View(customer);
         }
 
         // GET: Clientes/Create
-        public ActionResult Create()
-        {
+        public ActionResult Create() {
             return View();
         }
 
@@ -46,10 +45,8 @@ namespace curso.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CustomerID,NameStyle,Title,FirstName,MiddleName,LastName,Suffix,CompanyName,SalesPerson,EmailAddress,Phone,PasswordHash,PasswordSalt,rowguid,ModifiedDate")] Customer customer)
-        {
-            if (ModelState.IsValid)
-            {
+        public ActionResult Create([Bind(Include = "CustomerID,NameStyle,Title,FirstName,MiddleName,LastName,Suffix,CompanyName,SalesPerson,EmailAddress,Phone,PasswordHash,PasswordSalt,rowguid,ModifiedDate")] Customer customer) {
+            if (ModelState.IsValid) {
                 db.Customers.Add(customer);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -59,15 +56,12 @@ namespace curso.Controllers
         }
 
         // GET: Clientes/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
+        public ActionResult Edit(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Customer customer = db.Customers.Find(id);
-            if (customer == null)
-            {
+            if (customer == null) {
                 return HttpNotFound();
             }
             return View(customer);
@@ -78,10 +72,8 @@ namespace curso.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CustomerID,NameStyle,Title,FirstName,MiddleName,LastName,Suffix,CompanyName,SalesPerson,EmailAddress,Phone,PasswordHash,PasswordSalt,rowguid,ModifiedDate")] Customer customer)
-        {
-            if (ModelState.IsValid)
-            {
+        public ActionResult Edit([Bind(Include = "CustomerID,NameStyle,Title,FirstName,MiddleName,LastName,Suffix,CompanyName,SalesPerson,EmailAddress,Phone,PasswordHash,PasswordSalt,rowguid,ModifiedDate")] Customer customer) {
+            if (ModelState.IsValid) {
                 db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -90,15 +82,12 @@ namespace curso.Controllers
         }
 
         // GET: Clientes/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
+        public ActionResult Delete(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Customer customer = db.Customers.Find(id);
-            if (customer == null)
-            {
+            if (customer == null) {
                 return HttpNotFound();
             }
             return View(customer);
@@ -107,18 +96,15 @@ namespace curso.Controllers
         // POST: Clientes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
+        public ActionResult DeleteConfirmed(int id) {
             Customer customer = db.Customers.Find(id);
             db.Customers.Remove(customer);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing) {
                 db.Dispose();
             }
             base.Dispose(disposing);
