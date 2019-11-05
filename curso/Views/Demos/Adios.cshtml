@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Demos";
+    var msg = "";
+    var t = new int[] { 10, 20, 30 };
+}
+
+@if (!String.IsNullOrWhiteSpace(msg)) {
+    <h2>@msg</h2>
+} else {
+    <h2>Adiós mundo</h2>
+}
+
+<ul>
+    @foreach(var item in t) {
+        <li class="text-danger text-right">@item</li>
+    }
+</ul>
