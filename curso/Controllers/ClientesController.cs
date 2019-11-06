@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -11,20 +12,46 @@ using domain;
 namespace curso.Controllers {
     public class ClientesController : Controller {
         private AWEntities db = new AWEntities();
+        //protected override void OnActionExecuting(ActionExecutingContext filterContext) {
+        //    Debug.WriteLine($"{filterContext.ActionDescriptor.ControllerDescriptor.ControllerName} -> {filterContext.ActionDescriptor.ActionName}");
+        //    //Debug.WriteLine(filterContext.ActionDescriptor.ControllerDescriptor.ControllerName + " -> " + filterContext.ActionDescriptor.ActionName);
+        //    base.OnActionExecuting(filterContext);
+        //}
 
         // GET: Clientes
         public ActionResult Index(int page = 0, int size = 10) {
             ViewBag.CountPages = Math.Ceiling((Decimal)db.Customers.Count() / size);
-            ViewBag.NumPage = page;
-            return View(db.Customers
-                    .OrderBy(o=>o.CustomerID)
+            if (page >= ViewBag.CountPages)
+                return HttpNotFound();
+            var rslt = db.Customers
+                    .OrderBy(o => o.CustomerID)
                     .Skip(page * size)
                     .Take(size)
-                    .ToList());
+                    .ToList();
+            ViewBag.NumPage = page;
+            if (Request.IsAjaxRequest())
+                return Json(rslt, JsonRequestBehavior.AllowGet);
+            return View(rslt);
         }
 
         // GET: Clientes/Details/5
+        //[TraceActionFilter]
         public ActionResult Details(int? id) {
+            if (id == null) {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Customer customer = db.Customers
+                .Include("CustomerAddresses")
+                .Include("CustomerAddresses.Address")
+                .FirstOrDefault(o => o.CustomerID == id);
+            ViewBag.direcciones = customer.CustomerAddresses.Select(o => (o.Address as Address)).ToList();
+            if (customer == null) {
+                return HttpNotFound();
+            }
+            return View(customer);
+        }
+        // [Route("Clientes/Details/{id}/Direcciones")]
+        public ActionResult Direcciones(int? id) {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -32,10 +59,12 @@ namespace curso.Controllers {
             if (customer == null) {
                 return HttpNotFound();
             }
-            return View(customer);
+
+            return View("Direcciones", customer.CustomerAddresses.Select(o=>o.Address).ToList());
         }
 
         // GET: Clientes/Create
+        //[TraceActionFilter]
         public ActionResult Create() {
             return View();
         }
@@ -73,11 +102,13 @@ namespace curso.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CustomerID,NameStyle,Title,FirstName,MiddleName,LastName,Suffix,CompanyName,SalesPerson,EmailAddress,Phone,PasswordHash,PasswordSalt,rowguid,ModifiedDate")] Customer customer) {
-            if (ModelState.IsValid) {
-                db.Entry(customer).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            ModelState.AddModelError("", "Este es para el sumario");
+            ModelState.AddModelError("NameStyle", "Este no es un tratamiento");
+            //if (ModelState.IsValid) {
+            //    db.Entry(customer).State = EntityState.Modified;
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
             return View(customer);
         }
 

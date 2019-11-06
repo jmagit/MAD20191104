@@ -13,6 +13,12 @@ namespace curso {
             routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
+                name: "Direcciones",
+                url: "Clientes/Details/{id}/Direcciones",
+                defaults: new { controller = "Clientes", action = "Direcciones" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

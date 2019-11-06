@@ -124,7 +124,13 @@
 
     </dl>
 </div>
+@foreach(var item in ViewBag.direcciones) {
+    @*<h1>@item.AddressType</h1>
+    <hr />*@
+    @item
+}
 <p>
+    @Html.ActionLink("Direciones", "Direcciones", new { id = Model.CustomerID }) |
     @Html.ActionLink("Edit", "Edit", new { id = Model.CustomerID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

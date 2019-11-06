@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{840C8321-F9C2-4E4C-A4BE-7142DA4726C1}</ProjectGuid>
+    <ProjectGuid>{4FFB7C9E-B37A-4DE4-B9DD-099356E2F61E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>domain</RootNamespace>
-    <AssemblyName>domain</AssemblyName>
+    <RootNamespace>CFDomain</RootNamespace>
+    <AssemblyName>CFDomain</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -50,81 +50,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Address.cs">
-      <DependentUpon>AWModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AWModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AWModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AWModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AWModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AWModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AWModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Category.cs">
-      <DependentUpon>AWModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Customer.cs">
-      <DependentUpon>AWModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CustomerAddress.cs">
-      <DependentUpon>AWModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="partial\Customer.cs" />
-    <Compile Include="Product.cs">
-      <DependentUpon>AWModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProductDescription.cs">
-      <DependentUpon>AWModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProductModel.cs">
-      <DependentUpon>AWModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ProductModelProductDescription.cs">
-      <DependentUpon>AWModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Address.cs" />
+    <Compile Include="AWModel.cs" />
+    <Compile Include="Customer.cs" />
+    <Compile Include="CustomerAddress.cs" />
+    <Compile Include="Product.cs" />
+    <Compile Include="ProductCategory.cs" />
+    <Compile Include="ProductDescription.cs" />
+    <Compile Include="ProductModel.cs" />
+    <Compile Include="ProductModelProductDescription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SalesOrderDetail.cs">
-      <DependentUpon>AWModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SalesOrderHeader.cs">
-      <DependentUpon>AWModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="SalesOrderDetail.cs" />
+    <Compile Include="SalesOrderHeader.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="AWModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>AWModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
-    <None Include="AWModel.edmx.diagram">
-      <DependentUpon>AWModel.edmx</DependentUpon>
-    </None>
+    <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="AWModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AWModel.Context.cs</LastGenOutput>
-      <DependentUpon>AWModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="AWModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AWModel.edmx</DependentUpon>
-      <LastGenOutput>AWModel.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

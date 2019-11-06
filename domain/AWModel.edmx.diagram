@@ -5,9 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="e4a394d1394f46d5ac06f37fb2429ea0" Name="Diagram1" ZoomLevel="127">
-        <EntityTypeShape EntityType="AWModel.Address" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AWModel.Address" Width="1.5" PointX="4" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="AWModel.Customer" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AWModel.CustomerAddress" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AWModel.CustomerAddress" Width="1.5" PointX="1" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="AWModel.Product" Width="1.5" PointX="6" PointY="12.5" IsExpanded="true" />
         <EntityTypeShape EntityType="AWModel.Category" Width="1.5" PointX="2.25" PointY="12" IsExpanded="true" />
         <EntityTypeShape EntityType="AWModel.ProductDescription" Width="1.5" PointX="3.75" PointY="18.5" IsExpanded="true" />
