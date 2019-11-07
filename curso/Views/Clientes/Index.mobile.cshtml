@@ -1,0 +1,76 @@
+﻿@model IEnumerable<domain.Customer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index (version movil)</h2>
+
+<p>
+    @Html.ActionLink("Nuevo", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MiddleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.ActionLink("Ver", "Details", new { id = item.CustomerID }) |
+                @Html.ActionLink("Editar", "Edit", new { id = item.CustomerID }) |
+                @Html.ActionLink("Borrar", "Delete", new { id = item.CustomerID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li @if (ViewBag.NumPage == 0) { @: class="disabled" 
+            }>
+
+        <a href="@Url.Action("Index", new { page = 0 })" aria-label="Previous">
+
+            <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        @for (var i = 0; i < ViewBag.CountPages; i++) {
+            <li @if (ViewBag.NumPage == i) { @: class="active" 
+            }>
+                @Html.ActionLink((i + 1).ToString(), "Index", new { page = i })
+            </li>
+        }
+        <li @if (ViewBag.NumPage >= ViewBag.CountPages - 1) { @: class="disabled" 
+            }>
+            <a href="@Url.Action("Index", new { page = ViewBag.CountPages - 1 })" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>

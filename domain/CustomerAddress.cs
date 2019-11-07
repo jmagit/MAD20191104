@@ -9,6 +9,7 @@
 
 namespace domain
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
 
@@ -20,7 +21,9 @@ namespace domain
         public System.Guid rowguid { get; set; }
         public System.DateTime ModifiedDate { get; set; }
     
+        [JsonIgnore]
         public virtual Address Address { get; set; }
+        [JsonIgnore]
         public virtual Customer Customer { get; set; }
     }
 }

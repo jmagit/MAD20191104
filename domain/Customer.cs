@@ -9,6 +9,7 @@
 
 namespace domain
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -40,6 +41,7 @@ namespace domain
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
         public virtual ICollection<SalesOrderHeader> SalesOrderHeaders { get; set; }
     }
 }

@@ -10,7 +10,9 @@ namespace curso
         public static void Register(HttpConfiguration config)
         {
             // Configuración y servicios de API web
-
+#if DEBUG
+            config.EnableCors();
+#endif
             // Rutas de API web
             config.MapHttpAttributeRoutes();
 
