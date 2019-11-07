@@ -124,10 +124,10 @@
 
     </dl>
 </div>
-@foreach(var item in ViewBag.direcciones) {
-    @*<h1>@item.AddressType</h1>
-    <hr />*@
-    @item
+@foreach(var item in Model.CustomerAddresses) {
+    <h1>@item.AddressType</h1>
+    <hr />
+    @Html.DisplayFor(x => item)
 }
 <p>
     @Html.ActionLink("Direciones", "Direcciones", new { id = Model.CustomerID }) |

@@ -11,7 +11,6 @@ namespace domain
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
 
     public partial class CustomerAddress
     {
@@ -21,7 +20,6 @@ namespace domain
         public System.Guid rowguid { get; set; }
         public System.DateTime ModifiedDate { get; set; }
     
-        [UIHint("Address")]
         public virtual Address Address { get; set; }
         public virtual Customer Customer { get; set; }
     }

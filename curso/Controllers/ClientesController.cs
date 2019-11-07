@@ -41,10 +41,7 @@ namespace curso.Controllers {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Customer customer = db.Customers
-                .Include("CustomerAddresses")
-                .Include("CustomerAddresses.Address")
                 .FirstOrDefault(o => o.CustomerID == id);
-            ViewBag.direcciones = customer.CustomerAddresses.Select(o => (o.Address as Address)).ToList();
             if (customer == null) {
                 return HttpNotFound();
             }
@@ -60,7 +57,7 @@ namespace curso.Controllers {
                 return HttpNotFound();
             }
 
-            return View("Direcciones", customer.CustomerAddresses.Select(o=>o.Address).ToList());
+            return View("Direcciones", customer.CustomerAddresses.Select(o => o.Address).ToList());
         }
 
         // GET: Clientes/Create
