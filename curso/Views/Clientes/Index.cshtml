@@ -6,6 +6,13 @@
 
 <h2>Index</h2>
 
+@using(Html.BeginForm("Index", "Clientes", FormMethod.Get)) {
+    <div>
+        <label for="buscar">Buscar:</label>
+        <input id="buscar" type="text" name="buscar" value="@ViewBag.buscar" />
+        <input type="submit" value="Buscar" />
+    </div>
+}
 <p>
     @Html.ActionLink("Nuevo", "Create")
 </p>
@@ -63,7 +70,7 @@
         @for (var i = 0; i < ViewBag.CountPages; i++) {
             <li @if (ViewBag.NumPage == i) { @: class="active" 
             }>
-                @Html.ActionLink((i + 1).ToString(), "Index", new { page = i })
+                @Html.ActionLink((i + 1).ToString(), "Index", new { page = i, buscar=ViewBag.buscar })
             </li>
         }
         <li @if (ViewBag.NumPage >= ViewBag.CountPages - 1) { @: class="disabled" 

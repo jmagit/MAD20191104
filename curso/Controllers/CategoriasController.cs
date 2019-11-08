@@ -29,7 +29,7 @@ namespace curso.Controllers {
         // GET: api/Categorias/5
         [ResponseType(typeof(Category))]
         public IHttpActionResult GetCategory(int id) {
-            Category category = db.Categories.Find(id);
+            Category category = db.Categories.FirstOrDefault(o => o.ProductCategoryID == id && o.ParentProductCategoryID == null);
             if (category == null) {
                 return NotFound();
             }

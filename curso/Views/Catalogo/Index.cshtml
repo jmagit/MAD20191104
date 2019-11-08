@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @foreach (var item in ViewBag.categorias) {
+        @Ajax.ActionLink(item.Name as string, "Subcategorias",
+            new { id = item.Id },
+            new AjaxOptions {
+                HttpMethod = "GET", UpdateTargetId = "rsltAjax", InsertionMode = InsertionMode.Replace
+                })
+        @(" | ")
+    }
+</p>
+
+
+<div id="rsltAjax">
+    @Html.Action("Subcategorias", new { id = ViewBag.categorias[0].Id })
+</div>
+
+
+@section Scripts {
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+}
+
+@*<p>
+    @foreach (var item in ViewBag.categorias) {
+        <input type="button" class="cat-btn" data-id="@item.Id" value="@item.Name" />
+    }
+</p>
+
+<ul id="rslt">
+</ul>
+
+@section Scripts {
+    <script>
+        $('.cat-btn').click(function (e) {
+            $.ajax({ method: 'GET', url: '/api/categorias/' + e.target.dataset.id }).then(
+                function (data) {
+                    $('#rslt').empty();
+                    for (var i in data) {
+                        $('#rslt').append('<li>' + data[i].Name + '</li>');
+                    }
+                }
+            ).catch(function (err) {
+                $('#rslt').html('<li>error</li>');
+            });
+        });
+        $('.cat-btn').first().trigger( "click" );
+    </script>
+}*@

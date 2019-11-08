@@ -19,16 +19,21 @@ namespace curso.Controllers {
         //}
 
         // GET: Clientes
-        public ActionResult Index(int page = 0, int size = 10) {
-            ViewBag.CountPages = Math.Ceiling((Decimal)db.Customers.Count() / size);
+        public ActionResult Index(int page = 0, int size = 10, string buscar = "") {
+            var q = db.Customers
+                    .OrderBy(o => o.CustomerID);
+            if (!string.IsNullOrWhiteSpace(buscar))
+                q = q.Where(o => (o.FirstName + " " + o.MiddleName + " " + o.LastName).ToLower().Contains(buscar.ToLower())) as IOrderedQueryable<Customer>;
+
+            ViewBag.CountPages = Math.Ceiling((Decimal)q.Count() / size);
+
             if (page >= ViewBag.CountPages)
                 return HttpNotFound();
-            var rslt = db.Customers
-                    .OrderBy(o => o.CustomerID)
-                    .Skip(page * size)
+            ViewBag.NumPage = page;
+            ViewBag.buscar = buscar;
+            var rslt = q.Skip(page * size)
                     .Take(size)
                     .ToList();
-            ViewBag.NumPage = page;
             if (Request.IsAjaxRequest())
                 return Json(rslt, JsonRequestBehavior.AllowGet);
             return View(rslt);
