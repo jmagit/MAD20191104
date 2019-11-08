@@ -11,7 +11,12 @@ namespace curso.Controllers {
         }
 
         public ActionResult About() {
-            ViewBag.Message = "Hola mundo.";
+            ViewBag.Message = "Hola Mundo.";
+
+            return View();
+        }
+        public ActionResult Despide() {
+            ViewBag.Message = "Adios Mundo.";
 
             return View();
         }

@@ -5,7 +5,7 @@
 
 <h2>Index</h2>
 
-<p>
+@*<p>
     @foreach (var item in ViewBag.categorias) {
         @Ajax.ActionLink(item.Name as string, "Subcategorias",
             new { id = item.Id },
@@ -24,9 +24,9 @@
 
 @section Scripts {
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
-}
+}*@
 
-@*<p>
+<p>
     @foreach (var item in ViewBag.categorias) {
         <input type="button" class="cat-btn" data-id="@item.Id" value="@item.Name" />
     }
@@ -51,4 +51,4 @@
         });
         $('.cat-btn').first().trigger( "click" );
     </script>
-}*@
+}

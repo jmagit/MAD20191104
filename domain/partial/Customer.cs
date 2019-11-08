@@ -3,9 +3,31 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace domain {
+    [MetadataType(typeof(CustomerMetaData))]
+    partial class Customer : IValidatableObject {
+
+        public void darBaja() {
+            // this.
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) {
+            var rslt = new List<ValidationResult>();
+            if(Regex.Match(FirstName, "[^A-Z]*").Success) {
+                rslt.Add(new ValidationResult("Tiene que estar en mayúsculas", new[] { nameof(FirstName) }));
+            }
+            return rslt;
+        }
+        public bool IsValid {
+            get {
+                var rslt = new List<ValidationResult>();
+                return Validator.TryValidateObject(this, new ValidationContext(this), rslt);
+            }
+        }
+    }
     internal class CustomerMetaData {
         public int CustomerID { get; set; }
 
@@ -55,26 +77,5 @@ namespace domain {
         public Guid rowguid { get; set; }
 
         public DateTime ModifiedDate { get; set; }
-    }
-    [MetadataType(typeof(CustomerMetaData))]
-    partial class Customer : IValidatableObject {
-
-        public void darBaja() {
-            // this.
-        }
-
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) {
-            var rslt = new List<ValidationResult>();
-            if(FirstName != FirstName.ToUpper()) {
-                rslt.Add(new ValidationResult("Tiene que estar en mayúsculas", new[] { nameof(FirstName) }));
-            }
-            return rslt;
-        }
-        public bool IsValid {
-            get {
-                var rslt = new List<ValidationResult>();
-                return Validator.TryValidateObject(this, new ValidationContext(this), rslt);
-            }
-        }
     }
 }

@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using domain;
 
 namespace curso.Controllers {
+    [Authorize(Roles ="Admin")]
     public class ClientesController : Controller {
         private AWEntities db = new AWEntities();
         //protected override void OnActionExecuting(ActionExecutingContext filterContext) {
@@ -19,7 +20,12 @@ namespace curso.Controllers {
         //}
 
         // GET: Clientes
+        [AllowAnonymous]
         public ActionResult Index(int page = 0, int size = 10, string buscar = "") {
+            if (Session["Visita"] == null)
+                Session["Visita"] = 1;
+            else
+                Session["Visita"] = (int)Session["Visita"] + 1;
             var q = db.Customers
                     .OrderBy(o => o.CustomerID);
             if (!string.IsNullOrWhiteSpace(buscar))

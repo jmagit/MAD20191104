@@ -31,7 +31,7 @@ namespace curso.Tests.Controllers {
             ViewResult result = controller.About() as ViewResult;
 
             // Assert
-            Assert.AreEqual("Your application description page.", result.ViewBag.Message);
+            Assert.AreEqual("Hola Mundo.", result.ViewBag.Message);
         }
 
         [TestMethod]
@@ -44,6 +44,13 @@ namespace curso.Tests.Controllers {
 
             // Assert
             Assert.IsNotNull(result);
+        }
+        [TestMethod]
+        public void DespideTest() {
+            HomeController controller = new HomeController();
+            ViewResult result = controller.Despide() as ViewResult;
+            Assert.AreEqual("Adios Mundo.", result.ViewBag.Message);
+
         }
     }
 }
